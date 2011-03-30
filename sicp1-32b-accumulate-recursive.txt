@@ -1,0 +1,33 @@
+;SICP exercise 1.32b
+;recursive accumulator function
+
+;abstract summation procedure
+(define (sum term a next b)
+  (define (add x y) (+ x y))
+  (accumulate-recursive add 0 term a next b))
+;sum of integers
+(define (sum-integers a b)
+  (define (inc n) (+ n 1))
+  (define (identity x) x)
+  (sum identity a inc b))
+;sum of cubes
+(define (sum-cubes a b)
+  (define (inc n) (+ n 1))
+  (define (cube x) (* x x x))
+  (sum cube a inc b))
+
+;abstract product procedure
+(define (product term a next b)
+  (define (mult x y) (* x y))
+      (accumulate-recursive mult 1 term a next b))
+;factorial  
+(define (factorial n)
+  (define (inc n) (+ n 1))
+  (define (identity n) n)
+  (product identity 1 inc n))
+
+;recursive accumulator
+(define (accumulate-recursive combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner (term b) (accumulate-recursive combiner null-value term a next (- b 1)))))

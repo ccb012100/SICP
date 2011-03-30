@@ -1,0 +1,11 @@
+; SICP 2.18
+;
+; takes a list and returns
+; the list in reverse
+
+(define (reverse lis)
+  (define (make-list lis revlis)
+    (if (eq? (cdr lis) '())
+        (append (list (car lis)) revlis)
+        (make-list (cdr lis) (append (list (car lis)) revlis))))
+  (make-list lis '()))

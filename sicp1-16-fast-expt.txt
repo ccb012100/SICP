@@ -1,0 +1,14 @@
+;SICP exercise 1.16
+
+;finds exponent b**n using successive squaring
+;iterative version
+
+(define (fast-expt b n)
+  (define (square n) (* n n))
+  (define (even? n) (= 0 (remainder n 2)))
+  (define (expt-iter b n a)
+    (cond ((= 0 n) a)
+          ((even? n) (expt-iter (square b) (/ n 2) a))
+          ( else (expt-iter b (- n 1) (* a b)))))
+    
+  (expt-iter b n 1))

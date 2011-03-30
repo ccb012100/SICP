@@ -1,0 +1,14 @@
+;SICP exercise 1.31b
+
+;abstract product procedure -iterative version
+;factorial
+
+(define (product term a next b total)
+  (if (> a b)
+      total
+      (product term (+ a 1) next b (* total a))))
+  
+(define (factorial n)
+  (define (inc n) (+ n 1))
+  (define (identity n) n)
+  (product identity 1 inc n 1))

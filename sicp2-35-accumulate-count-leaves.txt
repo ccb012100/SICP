@@ -1,0 +1,22 @@
+; SICP Exercise 2.35
+; count-leaves procedure from section 2.2.2
+; redefined as an accumulation
+
+(define (count-leaves-b x)
+  (cond ((null? x) 0)  
+        ((not (pair? x)) 1)
+        (else (+ (count-leaves-b (car x))
+                 (count-leaves-b (cdr x))))))
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+(define (count-leaves t)
+  (accumulate + 0 (map (lambda (x)
+                         (if (pair? x)
+                             (count-leaves x)
+                             1))
+                       t)))

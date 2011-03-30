@@ -1,0 +1,18 @@
+;SICP exercise 1.18
+
+;Russian peasant method of multiplication
+
+;iterative process for multiplying two integers
+;in terms of adding, doubling, and halving
+;uses a logarithmic number of steps
+
+(define (iterative-multiply a b)
+  (define (double n) (* n 2))
+  (define (halve n) (/ n 2))
+  (define (even? n) (= 0 (remainder b 2)))
+  (define (odd? n) (= 1 (remainder b 2)))
+  (cond ((or (= 0 a) (= 0 b)) 0)
+        ((= 1 a) b)
+        ((= 1 b) a)
+        ((even? b) (iterative-multiply (double a) (halve b)))
+        (else (+ a (iterative-multiply  a (- b 1))))))

@@ -1,0 +1,9 @@
+;SICP
+;Exercise 1.12
+
+;print Pascal's triangle for line n, element x
+
+(define (pascal n x)
+  (cond ((or (= x n) (= x 1)) 1)
+        ((+ (pascal (- n 1) x)
+            (pascal (- n 1) (- x 1))))))

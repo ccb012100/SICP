@@ -1,0 +1,8 @@
+; Exercise 1.42.
+; Let f and g be two one-argument functions
+; Define a procedure compose that implements
+; composition f(g(x))
+
+
+(define (compose f g)
+  (lambda (x) (f (g x))))

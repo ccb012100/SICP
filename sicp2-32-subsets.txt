@@ -1,0 +1,10 @@
+; SICP Exercise 2.32
+;
+; given a list, generate the set of all subsets
+; in the form a of a list of lists
+
+(define (subsets s)
+  (if (null? s)
+      (list '())
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda (r) (cons (car s) r)) rest)))))

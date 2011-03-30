@@ -1,0 +1,22 @@
+;SICP exercise 1.31a
+
+;abstract product procedure
+;factorial and John Wallis' formula for approximating pi
+
+(define (product term a next b)
+  (if (> a b)
+      1
+      (* (term a) (product term (next a) next b))))
+  
+(define (factorial n)
+  (define (inc n) (+ n 1))
+  (define (identity n) n)
+  (product identity 1 inc n))
+
+(define (pi-approx n)
+  (define (inc n) (+ n 1))
+  (define (pi-fraction n)
+  (if (even? n)
+      (/ (+ n 2) (+ n 1))
+      (/ (+ n 1) (+ n 2))))
+  (* (product pi-fraction 1 inc n) 4.0))

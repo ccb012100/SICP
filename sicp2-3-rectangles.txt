@@ -1,0 +1,62 @@
+; SICP Exercise 2.3
+;
+; from text:
+; "Implement a representation for rectangles in a plane.
+; In terms of your constructors and selectors,
+; create procedures that compute the perimeter and the area of a given rectangle.
+; Now implement a different representation for rectangles.
+; Can you design your system with suitable abstraction barriers,
+; so that the same perimeter and area procedures will work using either representation?"
+
+(define (x-point x) (car x))
+(define (y-point x) (cdr x))
+(define (make-point x y) (cons x y))
+
+(define (make-segment x y) (cons x y))
+(define (start-segment x) (car x))
+(define (end-segment x) (cdr x))
+
+(define (midpoint-segment x)
+  (make-segment (/
+                 (-
+                  (x-point (end-segment x))
+                  (x-point (start-segment x)))
+                 2.0)
+                (/
+                 (- (y-point (end-segment x))
+                    (y-point (start-segment x)))
+                 2.0)))
+
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")"))
+
+(define (make-rectangle a b c)
+  (let ((width (- (x-point b) (x-point a)))
+        (height (- (y-point c) (y-point b))))
+    (cons width height)))
+
+(define (make-rectangle-alt a c)
+  (let ((height (- (y-point c) (y-point a)))
+        (width (- (x-point b) (x-point a))))
+    (cons width height)))
+
+(define (width x) (car x))
+(define (height x) (cdr x))
+
+(define (perimeter x)
+  (* 2 (+ (width x) (height x))))
+  
+(define (area x)
+  (* (width x) (height x)))
+  
+(define a (make-point 0 0))
+(define b (make-point 2 0))
+(define c (make-point 2 2))
+(define d (make-point 0 2))
+(define e (make-rectangle a b c))
+(define f (make-rectangle-alt a c))

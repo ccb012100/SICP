@@ -1,0 +1,12 @@
+;SICP exercise 1.17
+
+;O(log n) method of multiplication using
+;addition, double, and halve
+
+(define (fast-multiply a b)
+  (define (double n) (* n 2))
+  (define (halve n) (/ n 2))
+  (define (even? n) (= 0 (remainder n 2)))
+  (cond ((= b 0) 0)
+        ((even? b) (double (* a (halve b))))
+        (else (+ a (* a (- b 1))))))

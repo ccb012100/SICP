@@ -1,0 +1,13 @@
+; SICP Exercise 2.27
+; modified reverse procedure
+; reverses sublists as well as top-level list
+
+define (deep-reverse lis)
+  (cond ((null? (cdr lis))
+         (if (not (list? (car lis)))
+             lis
+             (list (deep-reverse (car lis)))))
+        ((not (list? (car lis))) (append (deep-reverse (cdr lis))
+                                         (list (car lis))))
+        (else (append (deep-reverse (cdr lis))
+                      (list (deep-reverse (car lis)))))))

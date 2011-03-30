@@ -1,0 +1,46 @@
+; SICP Exercise 2.29
+; binary mobile
+;
+; Each mobile has two branches, from which hang either a weight or another
+; binary mobile. Each branch is a rod of a certain length.
+
+(define (make-mobile left right)
+  (list left right))
+
+; A branch is constructed from a length (which must be a number) together
+; with a structure, which may be either a number (representing a simple weight)
+; or another mobile
+
+(define (make-branch length structure)
+  (list length structure))
+
+; (a.)  Write the corresponding selectors _left-branch_ and _right-branch_,
+; which return the branches of a mobile,  and _branch-length_ and
+;  _branch-structure_, which return the components of a branch.
+
+(define (left-branch mobile) (car mobile))
+(define (right-branch mobile) (cadr mobile))
+(define (branch-length branch) (car branch))
+(define (branch-structure branch) (cadr branch))
+
+; (b.) Using your selectors, define a procedure _total-weight_
+; that returns the total weight of a mobile.
+
+(define (total-weight mobile)
+  (define (weight branch total)
+    (cond ((list? (branch-structure branch)) (weight (branch-structure branch) total))
+          (else (+ total (branch-structure branch)))))
+  (+ (weight (left-branch mobile) 0) (weight (right-branch mobile) 0)))
+
+; (c.)  A mobile is said to be *balanced* if the torque applied by its top-left
+; branch is equal to that applied by its top-right branch (that is, if the
+; length of the left rod multiplied by the weight hanging from that rod is equal
+; to the corresponding product for the right side) and if each of the submobiles
+; hanging off its branches is balanced. Design a predicate that tests whether a
+; binary mobile is balanced.
+
+(define (balanced? mobile)
+  (define (torque branch)
+    (cond ((list? (branch-structure branch)) (torque (branch-structure branch)))
+          (else (* (branch-length branch) (branch-structure branch)))))
+  (eq? (torque (left-branch mobile)) (torque (right-branch mobile))))

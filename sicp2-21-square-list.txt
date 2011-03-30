@@ -1,0 +1,16 @@
+; Exercise 2.21
+; two different versions
+; of square-list; takes a
+; list and returns list
+; with each value squared
+
+(define nil '())
+
+(define (square-list items)
+  (if (null? items)
+      nil
+      (cons (* (car items) (car items)) (square-list (cdr items)))))
+
+(define (square-list-map items)
+  (map (lambda (x) (* x x))
+       items))

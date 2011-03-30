@@ -1,0 +1,31 @@
+; SICP Exercise 2.2
+;
+; creates points and line segments on Cartesian plane
+;
+
+(define (x-point x) (car x))
+(define (y-point x) (cdr x))
+(define (make-point x y) (cons x y))
+
+(define (make-segment x y) (cons x y))
+(define (start-segment x) (car x))
+(define (end-segment x) (cdr x))
+
+(define (midpoint-segment x)
+  (make-segment (/
+                 (-
+                  (x-point (end-segment x))
+                  (x-point (start-segment x)))
+                 2.0)
+                (/
+                 (- (y-point (end-segment x))
+                    (y-point (start-segment x)))
+                 2.0)))
+
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")"))

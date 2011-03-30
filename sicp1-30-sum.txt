@@ -1,0 +1,20 @@
+;SICP exercise 1.30
+
+;iterative summation calculator
+
+(define (sum term a next b)
+  (define (iter a total)
+    (if (> a b)
+         total
+         (iter (next a) (+ total (term a)))))
+  (iter a 0))
+
+(define (inc n) (+ n 1))
+
+(define (identity x) x)
+(define (sum-integers a b)
+  (sum identity a inc b))
+
+(define (sum-cubes a b)
+  (define (cube x) (* x x x))
+  (sum cube a inc b))

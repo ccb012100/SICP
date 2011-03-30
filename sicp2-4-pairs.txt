@@ -1,0 +1,13 @@
+;SICP Exercise 2.4
+;
+;alternate representation of pairs
+;
+
+(define (cons x y)
+  (lambda (m) (m x y)))
+
+(define (car z)
+  (z (lambda (p q) p)))
+
+(define (cdr w)
+  (w (lambda (p q) q)))

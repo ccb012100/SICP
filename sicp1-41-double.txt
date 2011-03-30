@@ -1,0 +1,7 @@
+; Exercise 1.41.
+; procedure 'double' that takes a procedure of one argument f(x)
+; as argument and returns a procedure that applies the
+; original procedure f(x) twice i.e. f(f(x))
+
+(define (double f)
+  (lambda (x) (f (f x))))

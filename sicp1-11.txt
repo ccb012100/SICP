@@ -1,0 +1,21 @@
+;SICP
+;Exercise 1.11
+
+;f(n) = f(n-1) + 2f(n-2) + 3f(n-3)
+
+;f(n) defined recursively
+
+(define (f-recursive n)
+  (if (< n 3) n
+      (+ (f-recursive (- n 1))
+         (* 2 (f-recursive (- n 2)))
+         (* 3 (f-recursive (- n 3))))))
+
+;;f(n) defined iteratively
+
+(define (f-iterative n)
+ (define (f-iterate x y z n count);; x = f(n-1), y = f(n-2), z = f(n-3)
+  (cond ((< n 3) n)
+        ((< count n) (f-iterate (+ x (* 2 y) (* 3 z)) x y n (+ 1 count)))
+        ((= count n) (+ x (* 2 y) (* 3 z)))))
+ (f-iterate 2 1 0 n 3))

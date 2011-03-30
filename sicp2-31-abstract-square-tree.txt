@@ -1,0 +1,15 @@
+; SICP Exercise 2.31
+; abstraction of square-tree from Ex. 2.30
+
+; abstract tree-map definition
+(define (tree-map proced tree)
+  (map (lambda (x)
+         (if (pair? x)
+             (tree-map proced x)
+             (proced x)))
+       tree))
+
+; define square-tree using tree-map
+(define (square-tree tree)
+  (define (square x) (* x x))
+  (tree-map square tree))

@@ -1,0 +1,14 @@
+; SICP Exercise 2.28
+; procedure fringe takes a tree (represented as a list)
+; and returns list of leaves in right-to-left order
+
+(define (fringe tree)
+  (define (make-list tree lis)
+    (cond ((list? (car tree)) (if (null? (cdr tree))
+                                  (append lis (make-list (car tree) '()))
+                                  (make-list (cdr tree) (append lis (make-list (car tree) '())))))
+          (else (if (null? (cdr tree))
+                    (append lis (list (car tree)))
+                    (make-list (cdr tree) (append lis (list (car tree))))))))
+                 
+  (make-list tree '()))

@@ -1,0 +1,35 @@
+;SICP exercise 1.33a
+;filtered accumulator function
+;find sum of squares of primes in range [a,b]
+
+(define (square x) (* x x))
+;abstract summation procedure
+(define (sum term a next b filter)
+  (define (add x y) (+ x y))
+  (filtered-accumulate add 0 term a next b filter))
+;sum of squares
+(define (sum-squares a b)
+  (define (inc n) (+ n 1))
+  (define (filter x) (equal? x x))
+  (sum square a inc b filter))
+;sum of squares of primes in range [a,b]
+(define (sum-squares-primes a b)
+  (define (inc n) (+ n 1))
+  (define (filter x) (prime? x))
+  (sum square a inc b filter))
+;test n for primality
+(define (prime? n)
+  (define (smallest-divisor n)
+    (find-divisor n 2))
+  (define (find-divisor n test-divisor)
+    (cond ((> (square test-divisor) n) n)
+          ((divides? test-divisor n) test-divisor)
+          (else (find-divisor n (+ test-divisor 1)))))
+  (define (divides? a b)
+    (= (remainder b a) 0))
+  (= n (smallest-divisor n)))
+;recursive accumulator
+(define (filtered-accumulate combiner null-value term a next b filter)
+  (cond ((> a b) null-value)
+        ((equal? #t (filter b)) (combiner (term b) (filtered-accumulate combiner null-value term a next (- b 1) filter)))
+        (else (filtered-accumulate combiner null-value term a next (- b 1) filter))))

@@ -1,0 +1,15 @@
+; Exercise 2.23
+;
+; for-each
+; “takes as arguments a procedure and a list of elements ...
+; applies the procedure to each of the elements in turn, from
+; left to right. The values returned by applying the procedure
+; to the elements are not used at all”
+
+(define (for-each f lis)
+  (map (lambda (x)
+         (f x))
+       lis))
+
+(for-each (lambda (x) (display (null? x)) (newline))
+          (list 3 4 5 6 '()))
